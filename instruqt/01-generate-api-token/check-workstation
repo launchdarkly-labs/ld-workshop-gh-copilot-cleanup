@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Challenge 1 has no automatable check today — the LD API token only exists in
+# the learner's clipboard after generation, never on the workstation. Verifying
+# would require asking the learner to paste it into a file, which defeats the
+# point of teaching secret hygiene.
+#
+# Trust-the-learner pass for now. If we ever add a "paste it here" prompt,
+# this script can shell out to the LD API and verify the token works:
+#   curl -fsS -H "Authorization: $TOKEN" \
+#     "https://app.launchdarkly.com/api/v2/projects/$LD_PROJECT_KEY" >/dev/null
+
+exit 0

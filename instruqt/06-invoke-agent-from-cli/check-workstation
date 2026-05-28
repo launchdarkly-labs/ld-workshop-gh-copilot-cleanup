@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Verify the GitHub Copilot CLI was installed.
+
+set -eu
+
+if ! command -v copilot >/dev/null 2>&1; then
+    echo "copilot CLI not found on PATH."
+    echo "Did you run 'npm install -g @github/copilot'?"
+    exit 1
+fi
+
+exit 0

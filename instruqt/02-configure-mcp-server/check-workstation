@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Verify the learner saved the LaunchDarkly entry into their MCP config.
+
+set -eu
+
+if [ -z "${GITHUB_TOKEN:-}" ]; then
+    # Token wasn't wired in (likely because consent.py hasn't been run for
+    # this pool user yet). Trust the learner instead of failing the check.
+    exit 0
+fi
+
+response="$(curl -fsS \
+    -H "Authorization: Bearer $GITHUB_TOKEN" \
+    -H "Accept: application/vnd.github+json" \
+    https://api.github.com/user/copilot/coding-agent/mcp-config 2>/dev/null || true)"
+
+if echo "$response" | jq -e '.mcpServers.LaunchDarkly' >/dev/null 2>&1; then
+    exit 0
+fi
+
+echo "No LaunchDarkly entry found in your Copilot MCP config."
+echo "Did you save the MCP configuration JSON from the assignment?"
+exit 1

@@ -1,0 +1,29 @@
+slug: github-copilot-launchdarkly
+id: e4rzziulatmt
+title: GitHub Copilot + LaunchDarkly
+teaser: PoV Sandbox for Python environments
+description: |-
+  Quickly learn how to use LaunchDarkly in a
+  Python environment. Use the example code or
+  create or bring your own code.
+icon: https://launchdarkly.com/favicon-dark-mode.png
+tags:
+- python
+- pov
+owner: launchdarkly
+developers:
+- kcochran@launchdarkly.com
+show_timer: true
+idle_timeout: 1200
+timelimit: 7200
+lab_config:
+  sidebar_enabled: true
+  feedback_recap_enabled: true
+  feedback_tab_enabled: false
+  loadingMessages: true
+  override_challenge_layout: false
+  hideStopButton: false
+  default_layout: AssignmentRight
+  default_layout_sidebar_size: 25
+checksum: "16283846906002827374"
+enhanced_loading: false

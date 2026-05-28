@@ -1,0 +1,14 @@
+# Local-only secrets — sources of truth live in AWS Secrets Manager
+docs/github-creds.txt
+docs/*.pem
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Lambda build artifact (recreated by deploy.sh)
+infra/sweeper/sweeper.zip
+
+# macOS
+.DS_Store

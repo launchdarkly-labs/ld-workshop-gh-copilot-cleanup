@@ -1,0 +1,72 @@
+#!/bin/bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
+until [ -f /opt/instruqt/bootstrap/host-bootstrap-completed ]; do
+    echo "Waiting for instruqt bootstrap to complete"
+    sleep 1
+done
+
+###################
+# Check out a GitHub pool user
+###################
+export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-2}"
+python3 -c 'import boto3' 2>/dev/null || pip install --quiet boto3
+# PYTHONPATH so pool.py can `import gh_auth` from the same lib dir.
+POOL_BUNDLE="$(PYTHONPATH="$SCRIPT_DIR/lib" python3 "$SCRIPT_DIR/lib/pool.py" checkout)"
+GH_USER="$(echo "$POOL_BUNDLE" | jq -r .username)"
+GH_PASS="$(echo "$POOL_BUNDLE" | jq -r .password)"
+GH_TOKEN="$(echo "$POOL_BUNDLE" | jq -r .github_token)"
+
+# Expose username + password to assignment markdown via Instruqt-Var.
+# The password is needed for the manual GitHub web-UI login in Challenge 2.
+agent variable set gh_user "$GH_USER"
+agent variable set gh_pass "$GH_PASS"
+echo "export GH_USER=\"$GH_USER\"" >> ~/.profile
+echo "export GH_USER=\"$GH_USER\"" >> ~/.bashrc
+
+# Wire the GitHub App access token into both gh and copilot CLIs.
+# `copilot` CLI checks COPILOT_GITHUB_TOKEN > GH_TOKEN > GITHUB_TOKEN.
+echo "$GH_TOKEN" | gh auth login --with-token >/dev/null 2>&1 || true
+{
+    echo "export GITHUB_TOKEN=\"$GH_TOKEN\""
+    echo "export GH_TOKEN=\"$GH_TOKEN\""
+} >> ~/.profile
+{
+    echo "export GITHUB_TOKEN=\"$GH_TOKEN\""
+    echo "export GH_TOKEN=\"$GH_TOKEN\""
+} >> ~/.bashrc
+export GITHUB_TOKEN="$GH_TOKEN"
+export GH_TOKEN="$GH_TOKEN"
+
+cd /opt/ld/terraform-ld-student
+echo "sandbox_id = \"${_SANDBOX_ID}\"" > terraform.tfvars
+terraform apply -auto-approve
+export LD_PROJECT_KEY="$(terraform output -json | jq -r '.students.value[0].project_key')"
+echo "" >> ~/.profile
+echo "export LD_PROJECT_KEY=\"$LD_PROJECT_KEY\"" >> ~/.profile
+echo "" >> ~/.bashrc
+echo "export LD_PROJECT_KEY=\"$LD_PROJECT_KEY\"" >> ~/.bashrc
+
+agent variable set projectkey "${LD_PROJECT_KEY}"
+
+export LD_CLIENT_KEY=$(curl -s -X GET \
+  'https://app.launchdarkly.com/api/v2/projects/'${LD_PROJECT_KEY}'/environments/test' \
+  -H 'Authorization: '${LAUNCHDARKLY_ACCESS_TOKEN}'' | jq -r ._id)
+echo "export LD_CLIENT_KEY=${LD_CLIENT_KEY}" >> ~/.profile
+echo "export LD_CLIENT_KEY=${LD_CLIENT_KEY}" >> ~/.bashrc
+echo "LD_CLIENT_KEY=${LD_CLIENT_KEY}" >> /opt/python/ld-sample-app-python/.env
+export LD_SDK_KEY=$(curl -s -X GET \
+  'https://app.launchdarkly.com/api/v2/projects/'${LD_PROJECT_KEY}'/environments/test' \
+  -H 'Authorization: '${LAUNCHDARKLY_ACCESS_TOKEN}'' | jq -r .apiKey)
+echo "export LD_SDK_KEY=${LD_SDK_KEY}" >> ~/.profile
+echo "export LD_SDK_KEY=${LD_SDK_KEY}" >> ~/.bashrc
+echo "LD_SDK_KEY=${LD_SDK_KEY}" >> /opt/python/ld-sample-app-python/.env
+
+###################
+# Get repo updates
+###################
+cd /opt/python/ld-sample-app-python
+git pull

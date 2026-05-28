@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Challenge 4 is purely UI-driven (read the agent's assessment in the Copilot
+# tab). There's no workstation-side state to inspect.
+#
+# A future improvement would be to verify the agent run via the GitHub API:
+#   GET /user/copilot/coding-agent/sessions
+# scoped to recent activity for the assigned pool user. Requires the GH App
+# user-access token to be in place.
+
+exit 0

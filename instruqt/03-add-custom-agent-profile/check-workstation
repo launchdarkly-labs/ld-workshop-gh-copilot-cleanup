@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Verify the LaunchDarkly agent profile was downloaded into the sample app.
+
+set -eu
+
+PROFILE="/opt/python/ld-sample-app-python/.github/agents/launchdarkly-flag-cleanup.agent.md"
+
+if [ ! -s "$PROFILE" ]; then
+    echo "Expected agent profile not found at $PROFILE"
+    echo "Did you run the wget step from the assignment?"
+    exit 1
+fi
+
+exit 0
