@@ -43,6 +43,10 @@ enhanced_loading: null
 
 Now that everything is configured, you'll use the LaunchDarkly agent through the GitHub Copilot UI to evaluate whether a feature flag is safe to remove.
 
+First, sign in to the GitHub tab with the account assigned to your session (you'll stay signed in for Challenge 5):
+**Username:** `[[ Instruqt-Var key="gh_user" hostname="workstation" ]]`
+**Password:** `[[ Instruqt-Var key="gh_pass" hostname="workstation" ]]`
+
 1. In the GitHub Tab, click the **Agents** tab.
 2. Click the Agents icon () and select `launchdarkly-flag-cleanup`.
 3. Enter the following prompt:

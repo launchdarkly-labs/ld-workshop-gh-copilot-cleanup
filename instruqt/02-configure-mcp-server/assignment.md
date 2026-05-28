@@ -40,15 +40,17 @@ enhanced_loading: null
 ---
 # Lab 2: Configure the LaunchDarkly MCP Server
 
-GitHub Copilot communicates with LaunchDarkly through a Model Context Protocol (MCP) server. In this challenge, you'll wire that connection up in your repository settings.
+GitHub Copilot communicates with LaunchDarkly through a Model Context Protocol (MCP) server. In this challenge, you'll register that connection on your Copilot coding agent.
 
-First, login to GitHub using the credentials assigned to your session:
-**Username:** `[[ Instruqt-Var key="gh_user" hostname="workstation" ]]`
-**Password:** `[[ Instruqt-Var key="gh_pass" hostname="workstation" ]]`
+The configuration normally lives under **Settings → Copilot → Coding agent** in the GitHub UI. For this lab your workstation is already authenticated as the assigned pool user, so we'll save it from the terminal with a single command.
 
-In the GitHub tab, go to **Settings** → **Copilot** → **Cloud agent**.
+In the **Terminal** tab, run:
 
-In the MCP configuration section, add the following JSON — replacing the placeholder with the API token you generated in the previous challenge:
+```bash
+save-mcp-config <your-launchdarkly-api-token>
+```
+
+Replace `<your-launchdarkly-api-token>` with the token you copied at the end of Challenge 1 (it starts with `api-`). The helper builds this JSON and `PUT`s it to the GitHub Copilot MCP config endpoint on your behalf:
 
 ```javascript
 {
@@ -65,15 +67,19 @@ In the MCP configuration section, add the following JSON — replacing the place
         "mcp",
         "start",
         "--api-key",
-        "api-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+        "<your-launchdarkly-api-token>"
       ]
     }
   }
 }
 ```
 
-Click **Save MCP Configuration**.
+You can verify the entry was saved at any point with:
 
-**Security tip:** In production, rather than hardcoding your API key, store it as a repository secret prefixed with **COPILOT_MCP_** (e.g., **COPILOT_MCP_LD_API_KEY**) and reference it via an environment variable in the config.
+```bash
+gh api /user/copilot/coding-agent/mcp-config
+```
 
-Once the MCP server configuration is saved, click **Check** to continue.
+**Security tip:** In production, rather than embedding the API key in the config, store it as a repository secret prefixed with **COPILOT_MCP_** (e.g., **COPILOT_MCP_LD_API_KEY**) and reference it from the config via an environment variable.
+
+Once the helper reports success, click **Check** to continue.
