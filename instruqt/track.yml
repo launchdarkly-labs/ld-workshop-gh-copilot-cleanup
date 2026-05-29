@@ -1,15 +1,22 @@
 slug: github-copilot-launchdarkly
 id: e4rzziulatmt
-title: GitHub Copilot + LaunchDarkly
-teaser: PoV Sandbox for Python environments
+title: Tame Flag Debt with LaunchDarkly + GitHub Copilot
+teaser: Automated feature flag cleanup using natural-language
+  prompts in the Copilot UI and CLI.
 description: |-
-  Quickly learn how to use LaunchDarkly in a
-  Python environment. Use the example code or
-  create or bring your own code.
+  Stale feature flags accumulate fast — and removing them
+  safely means cross-referencing status across environments,
+  identifying the winning variant, and producing a clean PR.
+  In this hands-on lab you'll configure the LaunchDarkly MCP
+  server, install the flag-cleanup agent in your repo, and
+  use Copilot to retire a flag without writing any code
+  yourself.
 icon: https://launchdarkly.com/favicon-dark-mode.png
 tags:
+- github-copilot
+- feature-flags
+- mcp
 - python
-- pov
 owner: launchdarkly
 developers:
 - kcochran@launchdarkly.com
@@ -25,5 +32,5 @@ lab_config:
   hideStopButton: false
   default_layout: AssignmentRight
   default_layout_sidebar_size: 25
-checksum: "930084129619015494"
+checksum: "11952429758332923070"
 enhanced_loading: false
