@@ -31,6 +31,17 @@ echo "export GH_USER=\"$GH_USER\"" >> ~/.bashrc
 # Wire the GitHub App access token into both gh and copilot CLIs.
 # `copilot` CLI checks COPILOT_GITHUB_TOKEN > GH_TOKEN > GITHUB_TOKEN.
 echo "$GH_TOKEN" | gh auth login --with-token >/dev/null 2>&1 || true
+
+# Publish the current 2FA code for Challenge 2's assignment markdown, and
+# install a gh-totp helper so learners can regenerate the code if the
+# 30-second window expires while they're typing.
+GH_TOTP="$(PYTHONPATH=/opt/ld/util python3 -m totp current "$GH_USER")"
+agent variable set gh_totp "$GH_TOTP"
+cat > /usr/local/bin/gh-totp <<WRAP
+#!/usr/bin/env bash
+exec env PYTHONPATH=/opt/ld/util python3 -m totp current "$GH_USER"
+WRAP
+chmod +x /usr/local/bin/gh-totp
 {
     echo "export GITHUB_TOKEN=\"$GH_TOKEN\""
     echo "export GH_TOKEN=\"$GH_TOKEN\""

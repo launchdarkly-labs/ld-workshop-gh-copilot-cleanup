@@ -45,6 +45,9 @@ GitHub Copilot communicates with LaunchDarkly through a Model Context Protocol (
 First, sign in to GitHub using the credentials assigned to your session (you'll stay signed in for the remaining challenges):
 **Username:** `[[ Instruqt-Var key="gh_user" hostname="workstation" ]]`
 **Password:** `[[ Instruqt-Var key="gh_pass" hostname="workstation" ]]`
+**2FA code:** `[[ Instruqt-Var key="gh_totp" hostname="workstation" ]]`
+
+> The 2FA code rotates every 30 seconds. If the one above has expired by the time GitHub prompts you, open the **Terminal** tab and run `gh-totp` to print a fresh code.
 
 In the GitHub tab, go to **Settings** → **Copilot** → **Cloud agent**.
 
