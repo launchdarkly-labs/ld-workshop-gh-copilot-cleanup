@@ -1,8 +1,8 @@
 slug: github-copilot-launchdarkly
 id: e4rzziulatmt
 title: Tame Flag Debt with LaunchDarkly + GitHub Copilot
-teaser: Automated feature flag cleanup using natural-language
-  prompts in the Copilot UI and CLI.
+teaser: Automated feature flag cleanup using natural-language prompts in the Copilot
+  UI and CLI.
 description: |-
   Stale feature flags accumulate fast — and removing them
   safely means cross-referencing status across environments,
@@ -13,10 +13,10 @@ description: |-
   yourself.
 icon: https://launchdarkly.com/favicon-dark-mode.png
 tags:
+- python
 - github-copilot
 - feature-flags
 - mcp
-- python
 owner: launchdarkly
 developers:
 - kcochran@launchdarkly.com
@@ -32,5 +32,5 @@ lab_config:
   hideStopButton: false
   default_layout: AssignmentRight
   default_layout_sidebar_size: 25
-checksum: "11952429758332923070"
+checksum: "14564220707294528517"
 enhanced_loading: false
