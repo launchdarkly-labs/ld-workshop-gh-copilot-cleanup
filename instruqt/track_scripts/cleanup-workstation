@@ -21,6 +21,6 @@ fi
 
 # Release the GitHub pool user. Best-effort: the TTL sweeper is the safety
 # net if this fails (e.g. AWS creds expired mid-session).
-export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-2}"
+export AWS_REGION="${AWS_REGION:-us-east-1}"
 PYTHONPATH="$SCRIPT_DIR/lib" python3 "$SCRIPT_DIR/lib/pool.py" release \
     || echo "pool release failed; sweeper will recover the row"

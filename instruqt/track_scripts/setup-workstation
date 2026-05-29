@@ -12,7 +12,7 @@ done
 ###################
 # Check out a GitHub pool user
 ###################
-export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-2}"
+export AWS_REGION="${AWS_REGION:-us-east-1}"
 python3 -c 'import boto3' 2>/dev/null || pip install --quiet boto3
 # PYTHONPATH so pool.py can `import gh_auth` from the same lib dir.
 POOL_BUNDLE="$(PYTHONPATH="$SCRIPT_DIR/lib" python3 "$SCRIPT_DIR/lib/pool.py" checkout)"
