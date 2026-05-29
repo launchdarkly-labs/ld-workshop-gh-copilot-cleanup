@@ -16,7 +16,7 @@ done
 export AWS_REGION="${AWS_REGION:-us-east-1}"
 python3 -c 'import boto3' 2>/dev/null || pip install --quiet boto3
 # PYTHONPATH so pool.py can `import gh_auth` from the same lib dir.
-POOL_BUNDLE="$(PYTHONPATH="$SCRIPT_DIR/lib" python3 "$SCRIPT_DIR/lib/pool.py" checkout)"
+POOL_BUNDLE="$(PYTHONPATH="/opt/ld/util" python3 "/opt/ld/util/pool.py" checkout)"
 GH_USER="$(echo "$POOL_BUNDLE" | jq -r .username)"
 GH_PASS="$(echo "$POOL_BUNDLE" | jq -r .password)"
 GH_TOKEN="$(echo "$POOL_BUNDLE" | jq -r .github_token)"
@@ -33,7 +33,7 @@ echo "export GH_USER=\"$GH_USER\"" >> ~/.bashrc
 echo "$GH_TOKEN" | gh auth login --with-token >/dev/null 2>&1 || true
 
 # Drop the MCP-config helper on PATH so Challenge 2 is a single command.
-install -m 0755 "$SCRIPT_DIR/lib/save-mcp-config.sh" /usr/local/bin/save-mcp-config
+install -m 0755 "/opt/ld/util/save-mcp-config.sh" /usr/local/bin/save-mcp-config
 {
     echo "export GITHUB_TOKEN=\"$GH_TOKEN\""
     echo "export GH_TOKEN=\"$GH_TOKEN\""
