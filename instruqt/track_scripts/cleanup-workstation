@@ -5,19 +5,9 @@ SCRIPT_DIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd /opt/ld/terraform-ld-student
 terraform destroy -auto-approve || true
 
-# Reset the pool user's MCP config so the LD API key written in Challenge 2
-# doesn't leak into the next session that gets this account. Source the
-# bash profile because cleanup-workstation runs in a fresh shell.
-# shellcheck disable=SC1091
-[ -f ~/.profile ] && . ~/.profile
-if [ -n "${GITHUB_TOKEN:-}" ]; then
-    curl -fsS -X PUT \
-        -H "Authorization: Bearer $GITHUB_TOKEN" \
-        -H "Accept: application/vnd.github+json" \
-        https://api.github.com/user/copilot/coding-agent/mcp-config \
-        -d '{"mcpServers": {}}' >/dev/null 2>&1 \
-        || echo "MCP reset failed; the next consumer of this account will see leftover config"
-fi
+# The LD project for this session is destroyed by terraform above, so any
+# residual MCP entry in the pool user's Copilot settings points at a dead
+# API token. The next learner overwrites it in Challenge 2.
 
 # Release the GitHub pool user. Best-effort: the TTL sweeper is the safety
 # net if this fails (e.g. AWS creds expired mid-session).

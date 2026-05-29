@@ -1,24 +1,9 @@
 #!/bin/bash
 #
-# Verify the learner saved the LaunchDarkly entry into their MCP config.
+# No automatable check today. GitHub's REST API exposes only a GET for the
+# Copilot cloud-agent config (added 2026-05-18), and even that requires a
+# token with Copilot read scope that our GitHub App doesn't carry. Trust
+# the learner; downstream challenges fail visibly if the MCP entry is
+# missing or malformed.
 
-set -eu
-
-if [ -z "${GITHUB_TOKEN:-}" ]; then
-    # Token wasn't wired in (likely because consent.py hasn't been run for
-    # this pool user yet). Trust the learner instead of failing the check.
-    exit 0
-fi
-
-response="$(curl -fsS \
-    -H "Authorization: Bearer $GITHUB_TOKEN" \
-    -H "Accept: application/vnd.github+json" \
-    https://api.github.com/user/copilot/coding-agent/mcp-config 2>/dev/null || true)"
-
-if echo "$response" | jq -e '.mcpServers.LaunchDarkly' >/dev/null 2>&1; then
-    exit 0
-fi
-
-echo "No LaunchDarkly entry found in your Copilot MCP config."
-echo "Did you save the MCP configuration JSON from the assignment?"
-exit 1
+exit 0

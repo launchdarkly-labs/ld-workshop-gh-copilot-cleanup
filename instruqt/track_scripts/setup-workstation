@@ -31,9 +31,6 @@ echo "export GH_USER=\"$GH_USER\"" >> ~/.bashrc
 # Wire the GitHub App access token into both gh and copilot CLIs.
 # `copilot` CLI checks COPILOT_GITHUB_TOKEN > GH_TOKEN > GITHUB_TOKEN.
 echo "$GH_TOKEN" | gh auth login --with-token >/dev/null 2>&1 || true
-
-# Drop the MCP-config helper on PATH so Challenge 2 is a single command.
-install -m 0755 "/opt/ld/util/save-mcp-config.sh" /usr/local/bin/save-mcp-config
 {
     echo "export GITHUB_TOKEN=\"$GH_TOKEN\""
     echo "export GH_TOKEN=\"$GH_TOKEN\""
