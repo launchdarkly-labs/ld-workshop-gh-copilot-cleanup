@@ -32,11 +32,10 @@ echo "export GH_USER=\"$GH_USER\"" >> ~/.bashrc
 # `copilot` CLI checks COPILOT_GITHUB_TOKEN > GH_TOKEN > GITHUB_TOKEN.
 echo "$GH_TOKEN" | gh auth login --with-token >/dev/null 2>&1 || true
 
-# Publish the current 2FA code for Challenge 2's assignment markdown, and
-# install a gh-totp helper so learners can regenerate the code if the
-# 30-second window expires while they're typing.
-GH_TOTP="$(PYTHONPATH=/opt/ld/util python3 -m totp current "$GH_USER")"
-agent variable set gh_totp "$GH_TOTP"
+# Install gh-totp so learners can regenerate the 2FA code at any moment.
+# The gh_totp Instruqt-Var itself is refreshed by 02-configure-mcp-server's
+# per-challenge setup-workstation, so it's freshly minted when the learner
+# actually needs it.
 cat > /usr/local/bin/gh-totp <<WRAP
 #!/usr/bin/env bash
 exec env PYTHONPATH=/opt/ld/util python3 -m totp current "$GH_USER"

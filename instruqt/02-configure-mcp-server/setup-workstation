@@ -1,11 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 #
-# This script runs when the platform setup the challenge.
-#
-# The platform determines if the script was successful using the exit code of this
-# script. If the exit code is not 0, the script fails. 
-#
+# Refresh the gh_totp Instruqt-Var so the assignment markdown shows a
+# code that's freshly minted at the moment Challenge 2 opens (not at
+# track-level session start, which could be many minutes earlier).
 
-echo "This is the setup script"
+set -eu
+
+GH_USER="$(agent variable get gh_user)"
+GH_TOTP="$(PYTHONPATH=/opt/ld/util python3 -m totp current "$GH_USER")"
+agent variable set gh_totp "$GH_TOTP"
 
 exit 0
