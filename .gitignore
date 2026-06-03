@@ -10,5 +10,12 @@ __pycache__/
 # Lambda build artifact (recreated by deploy.sh)
 infra/sweeper/sweeper.zip
 
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+
 # macOS
 .DS_Store
