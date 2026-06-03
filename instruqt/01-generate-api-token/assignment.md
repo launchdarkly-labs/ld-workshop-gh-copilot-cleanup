@@ -15,25 +15,6 @@ tabs:
   title: LaunchDarkly
   type: browser
   hostname: launchdarkly
-- id: sgwdplekrjvp
-  title: Code Editor
-  type: service
-  hostname: workstation
-  port: 8080
-- id: 7j6z1gyhitxi
-  title: GitHub
-  type: browser
-  hostname: github
-- id: xjqu5ek1yqke
-  title: Coffee Shop App
-  type: service
-  hostname: workstation
-  path: /
-  port: 3000
-- id: jfmj3euyanwe
-  title: Terminal
-  type: terminal
-  hostname: workstation
 difficulty: ""
 timelimit: 600
 enhanced_loading: null
@@ -42,11 +23,17 @@ enhanced_loading: null
 
 Before the LaunchDarkly Copilot agent can interact with your feature flags, it needs a way to authenticate with the LaunchDarkly API. In this challenge, you'll create an API access token with the right permissions.
 
-1. In the LaunchDarkly tab and navigate to **Organization Settings** → **Authorization** → **Access Tokens**.
-2. Click **Create token** and give it a descriptive name (e.g., `copilot-cleanup-[[ Instruqt-Var key="projectkey" hostname="workstation" ]]`).
-3. Assign the token the **Custom** base role, then select `instruqt-workshop - [[ Instruqt-Var key="projectkey" hostname="workstation" ]] Admin` under **Custom roles**.
-4. Click **Save Token**
-5. Copy the generated token and store it somewhere safe — you won't be able to view it again after closing the dialog.
+1. At the bottom of the left-hand navigation panel, click on the **Organization Settings**.
+![Organization Settings](../assets/ld-img-settings.png)
+2. Scroll down the navigation panel and click **Authorization**.
+3. Scroll down to **Access tokens** and click **Create token**.
+4. In the **Name** field, enter:
+```
+copilot-cleanup-[[ Instruqt-Var key="projectkey" hostname="workstation" ]]
+```
+5. Assign the token the **Custom** base role, then select `instruqt-workshop - [[ Instruqt-Var key="projectkey" hostname="workstation" ]] Admin` under **Custom roles**.
+6. Click **Save Token**
+7. Copy the generated token and store it somewhere safe — you won't be able to view it again after closing the dialog.
 
 ⚠️ Treat this token like a password. You'll use it in the next challenge to configure the MCP server.
 
