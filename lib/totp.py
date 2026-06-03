@@ -64,7 +64,14 @@ def main() -> None:
     if len(sys.argv) != 3 or sys.argv[1] != "current":
         sys.exit("usage: python3 -m totp current <username>")
     username = sys.argv[2]
-    sm = boto3.client("secretsmanager", region_name=REGION)
+    has_env_creds = all(
+        os.environ.get(key) for key in ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+    )
+    if has_env_creds:
+        session = boto3.Session(region_name=REGION)
+    else:
+        session = boto3.Session(region_name=REGION, profile_name="BasicProfile")
+    sm = session.client("secretsmanager")
     seed = _resolve_secret(sm, f"{SECRET_PREFIX}/{username}/totp-seed")
     print(totp(seed))
 

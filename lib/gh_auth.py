@@ -28,7 +28,14 @@ REGION = os.environ.get("AWS_REGION", "us-east-1")
 SECRET_PREFIX = os.environ.get("POOL_SECRET_PREFIX", "gh-copilot-workshop")
 TOKEN_URL = "https://github.com/login/oauth/access_token"
 
-_sm = boto3.client("secretsmanager", region_name=REGION)
+has_env_creds = all(
+    os.environ.get(key) for key in ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+)
+if has_env_creds:
+    session = boto3.Session(region_name=REGION)
+else:
+    session = boto3.Session(region_name=REGION, profile_name="BasicProfile")
+_sm = session.client("secretsmanager")
 
 # See note in pool.py: ARNs end with a `-XXXXXX` suffix that bare names don't.
 _AWS_ARN_SUFFIX_RE = re.compile(r"-[A-Za-z0-9]{6}$")

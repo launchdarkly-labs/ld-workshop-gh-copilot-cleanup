@@ -66,43 +66,9 @@ data "aws_iam_policy_document" "trust" {
 }
 
 resource "aws_iam_role" "instruqt" {
-  name                 = "RoleForAccessFromInstruqt"
+  name                 = "InstruqtGitHubCopilotPoolRole"
   assume_role_policy   = data.aws_iam_policy_document.trust.json
   max_session_duration = 3600
-}
-
-# ---------- Bedrock permissions policy ----------
-
-data "aws_iam_policy_document" "bedrock" {
-  statement {
-    sid    = "InvokeBedrockModels"
-    effect = "Allow"
-
-    actions = [
-      "bedrock:InvokeModel",
-      "bedrock:InvokeModelWithResponseStream",
-      "bedrock:Converse",
-      "bedrock:ConverseStream",
-    ]
-
-    resources = [
-      "arn:aws:bedrock:us-east-1:${var.account_id}:inference-profile/us.anthropic.claude-sonnet-4-6",
-      "arn:aws:bedrock:us-east-1:${var.account_id}:inference-profile/us.anthropic.claude-haiku-4-5-20251001-v1:0",
-      "arn:aws:bedrock:us-east-1:${var.account_id}:inference-profile/us.amazon.nova-lite-v1:0",
-      "arn:aws:bedrock:us-east-1:${var.account_id}:inference-profile/us.amazon.nova-pro-v1:0",
-
-      "arn:aws:bedrock:*::foundation-model/anthropic.claude-sonnet-4-6",
-      "arn:aws:bedrock:*::foundation-model/anthropic.claude-haiku-4-5-20251001-v1:0",
-      "arn:aws:bedrock:*::foundation-model/amazon.nova-lite-v1:0",
-      "arn:aws:bedrock:*::foundation-model/amazon.nova-pro-v1:0",
-    ]
-  }
-}
-
-resource "aws_iam_role_policy" "bedrock" {
-  name   = "BedrockInvokeAccess"
-  role   = aws_iam_role.instruqt.id
-  policy = data.aws_iam_policy_document.bedrock.json
 }
 
 # ---------- Pool runtime (DynamoDB + Secrets Manager) ----------

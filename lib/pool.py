@@ -173,9 +173,16 @@ def release(ddb) -> None:
 def main() -> None:
     if len(sys.argv) != 2 or sys.argv[1] not in {"checkout", "release"}:
         _die("usage: pool.py {checkout|release}")
-    ddb = boto3.client("dynamodb", region_name=REGION)
+    has_env_creds = all(
+        os.environ.get(key) for key in ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+    )
+    if has_env_creds:
+        session = boto3.Session(region_name=REGION)
+    else:
+        session = boto3.Session(region_name=REGION, profile_name="BasicProfile")
+    ddb = session.client("dynamodb")
     if sys.argv[1] == "checkout":
-        sm = boto3.client("secretsmanager", region_name=REGION)
+        sm = session.client("secretsmanager")
         checkout(ddb, sm)
     else:
         release(ddb)
