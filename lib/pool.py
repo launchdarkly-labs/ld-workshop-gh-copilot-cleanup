@@ -20,6 +20,7 @@ Stdout (release):
 import json
 import os
 import random
+import re
 import sys
 import time
 
@@ -32,18 +33,25 @@ REGION = os.environ.get("AWS_REGION", "us-east-1")
 TABLE = os.environ.get("POOL_TABLE_NAME", "gh-copilot-workshop-users")
 LOCK_TTL = int(os.environ.get("POOL_LOCK_TTL_SECS", "7200"))
 
+# Secrets Manager appends "-XXXXXX" (6 random alphanum) to the resource part
+# of every ARN, but not to bare names. _resolve_secret needs to handle both
+# so it can be called with either a name or a full ARN.
+_AWS_ARN_SUFFIX_RE = re.compile(r"-[A-Za-z0-9]{6}$")
+
 
 def _resolve_secret(sm, secret_id: str) -> str:
-    """Plain or key/value (JSON) — extract value whose key matches last path segment."""
+    """Plain or key/value (JSON) — extract value whose key matches the last
+    path segment, with AWS's ARN suffix stripped if necessary."""
     raw = sm.get_secret_value(SecretId=secret_id)["SecretString"]
     try:
         parsed = json.loads(raw)
     except (json.JSONDecodeError, ValueError):
         return raw
     if isinstance(parsed, dict):
-        key = secret_id.rstrip("/").split("/")[-1]
-        if key in parsed:
-            return parsed[key]
+        last = secret_id.rstrip("/").split("/")[-1]
+        for candidate in (last, _AWS_ARN_SUFFIX_RE.sub("", last)):
+            if candidate in parsed:
+                return parsed[candidate]
     return raw
 
 

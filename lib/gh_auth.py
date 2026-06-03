@@ -10,6 +10,7 @@ returning so we don't lose access if the caller crashes.
 
 import json
 import os
+import re
 import ssl
 import sys
 import urllib.parse
@@ -29,18 +30,23 @@ TOKEN_URL = "https://github.com/login/oauth/access_token"
 
 _sm = boto3.client("secretsmanager", region_name=REGION)
 
+# See note in pool.py: ARNs end with a `-XXXXXX` suffix that bare names don't.
+_AWS_ARN_SUFFIX_RE = re.compile(r"-[A-Za-z0-9]{6}$")
+
 
 def _resolve(secret_id: str) -> str:
-    """Plain or key/value (JSON) — extract value whose key matches last path segment."""
+    """Plain or key/value (JSON) — extract value whose key matches the last
+    path segment, with AWS's ARN suffix stripped if necessary."""
     raw = _sm.get_secret_value(SecretId=secret_id)["SecretString"]
     try:
         parsed = json.loads(raw)
     except (json.JSONDecodeError, ValueError):
         return raw
     if isinstance(parsed, dict):
-        key = secret_id.rstrip("/").split("/")[-1]
-        if key in parsed:
-            return parsed[key]
+        last = secret_id.rstrip("/").split("/")[-1]
+        for candidate in (last, _AWS_ARN_SUFFIX_RE.sub("", last)):
+            if candidate in parsed:
+                return parsed[candidate]
     return raw
 
 

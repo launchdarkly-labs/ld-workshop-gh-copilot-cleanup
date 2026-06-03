@@ -16,6 +16,7 @@ import hashlib
 import hmac
 import json
 import os
+import re
 import struct
 import sys
 import time
@@ -25,6 +26,9 @@ import boto3
 REGION = os.environ.get("AWS_REGION", "us-east-1")
 SECRET_PREFIX = os.environ.get("POOL_SECRET_PREFIX", "gh-copilot-workshop")
 
+# See note in pool.py: ARNs end with a `-XXXXXX` suffix that bare names don't.
+_AWS_ARN_SUFFIX_RE = re.compile(r"-[A-Za-z0-9]{6}$")
+
 
 def _resolve_secret(sm, secret_id: str) -> str:
     raw = sm.get_secret_value(SecretId=secret_id)["SecretString"]
@@ -33,9 +37,10 @@ def _resolve_secret(sm, secret_id: str) -> str:
     except (json.JSONDecodeError, ValueError):
         return raw
     if isinstance(parsed, dict):
-        key = secret_id.rstrip("/").split("/")[-1]
-        if key in parsed:
-            return parsed[key]
+        last = secret_id.rstrip("/").split("/")[-1]
+        for candidate in (last, _AWS_ARN_SUFFIX_RE.sub("", last)):
+            if candidate in parsed:
+                return parsed[candidate]
     return raw
 
 
