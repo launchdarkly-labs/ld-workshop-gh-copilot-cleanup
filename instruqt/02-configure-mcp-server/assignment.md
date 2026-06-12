@@ -43,16 +43,28 @@ enhanced_loading: null
 GitHub Copilot communicates with LaunchDarkly through a Model Context Protocol (MCP) server. In this challenge, you'll wire that connection up in your Copilot settings.
 
 First, sign in to GitHub using the credentials assigned to your session (you'll stay signed in for the remaining challenges):
-**Username:** `[[ Instruqt-Var key="gh_user" hostname="workstation" ]]`
-**Password:** `[[ Instruqt-Var key="gh_pass" hostname="workstation" ]]`
-**2FA code:** `[[ Instruqt-Var key="gh_totp" hostname="workstation" ]]`
+
+**Username:**
+```text
+[[ Instruqt-Var key="gh_user" hostname="workstation" ]]
+```
+**Password:**
+```text
+[[ Instruqt-Var key="gh_pass" hostname="workstation" ]]
+```
+**2FA code:**
+```text
+[[ Instruqt-Var key="gh_totp" hostname="workstation" ]]
+```
 
 > The 2FA code rotates every 30 seconds. If the one above has expired by the time GitHub prompts you, open the **Terminal** tab and run `gh-totp` to print a fresh code.
 
-In the GitHub tab, go to **Settings** → **Copilot** → **Cloud agent**.
+Next, we need to clone a repo which we can work with.
 
-In the MCP configuration section, add the following JSON — replacing the placeholder with the API token you generated in the previous challenge:
-
+1. In the GitHub tab, click on the **ld-sample-app-python** repository.
+2. At the upper-right of the repo, click **Fork**, then **Create fork**.
+3. Go to **Settings** → **Copilot** → **Cloud agent**.
+4. In the MCP configuration section, add the following JSON — replacing the placeholder with the API token you generated in the previous challenge:
 ```javascript
 {
   "mcpServers": {
@@ -74,8 +86,7 @@ In the MCP configuration section, add the following JSON — replacing the place
   }
 }
 ```
-
-Click **Save MCP Configuration**.
+5. Click **Save MCP configuration**.
 
 **Security tip:** In production, rather than hardcoding your API key, store it as a repository secret prefixed with **COPILOT_MCP_** (e.g., **COPILOT_MCP_LD_API_KEY**) and reference it via an environment variable in the config.
 

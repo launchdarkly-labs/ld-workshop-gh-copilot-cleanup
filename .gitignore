@@ -19,3 +19,7 @@ infra/sweeper/sweeper.zip
 
 # macOS
 .DS_Store
+test.sh
+test.py
+test.json
+customer-questions.jsonl

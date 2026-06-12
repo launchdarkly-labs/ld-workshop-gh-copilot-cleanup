@@ -43,10 +43,38 @@ enhanced_loading: null
 
 The MCP server handles API communication, but the custom agent profile is what gives GitHub Copilot its specialized knowledge of LaunchDarkly workflows — things like how to evaluate flag readiness, identify forward values, and structure pull requests that preserve production behavior.
 
-1. In the Terminal tab, enter `cd /opt/python/ld-sample-app-python`.
-2. Next, enter `mkdir -p .github/agents`, then `cd .github/agents`.
-3. Now we need to download the LaunchDarkly agent profile. Enter `wget https://raw.githubusercontent.com/github/awesome-copilot/refs/heads/main/agents/launchdarkly-flag-cleanup.agent.md`.
-4. This environment, you won't be able to commit this file to the repo, but when you run this in your environment, make sure you commit to your repo's default branch at this point.
+First, let's get our repo ready in our terminal.
+
+1. Go to the GitHub tab, and in the upper-right corner, click on the user avatar, then click **Settings**.
+2. Click **SSH and GPG keys**, then under SSH keys, click **New SSH key**.
+3. For **Title**, enter:
+```text
+Copilot Cleanup User
+```
+4. Leave **Key type** as **Authentication Key**.
+5. For **Key**, enter:
+```text
+[[ Instruqt-Var key="git_ssh_key" hostname="workstation" ]]
+```
+
+1. Go to the Terminal tab, and enter:
+```text
+git clone git@github.com:[[ Instruqt-Var key="gh_user" hostname="workstation" ]]/ld-sample-app-python.git && cd ld-sample-app-python
+```
+2. Next, enter:
+```text
+mkdir -p .github/agents && cd .github/agents
+```
+3. Now we need to download the LaunchDarkly agent profile. Enter
+```text
+wget https://raw.githubusercontent.com/github/awesome-copilot/refs/heads/main/agents/launchdarkly-flag-cleanup.agent.md
+```
+4. Now let's push this to our repo so we can start using it!
+```text
+git add launchdarkly-flag-cleanup.agent.md
+git commit -m "Add Copilot flag cleanup agent"
+git push
+```
 
 With both the MCP server configured and the agent profile committed, your repository is now fully set up to use the LaunchDarkly Copilot agent.
 

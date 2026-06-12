@@ -5,6 +5,14 @@ SCRIPT_DIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd /opt/ld/terraform-ld-student
 terraform destroy -auto-approve || true
 
+# get the personal acces token
+GITHUB_TOKEN=$(python3 /opt/ld/util/pat.py current launchdarkly-user-01)
+# Delete all github repos and SSH keys
+gh repo list --limit 1000 --json nameWithOwner -q '.[].nameWithOwner' \
+  | xargs -I {} gh repo delete {} --yes
+
+gh api /user/keys --jq '.[].id' | xargs -I {} gh api -X DELETE /user/keys/{}
+
 # The LD project for this session is destroyed by terraform above, so any
 # residual MCP entry in the pool user's Copilot settings points at a dead
 # API token. The next learner overwrites it in Challenge 2.
