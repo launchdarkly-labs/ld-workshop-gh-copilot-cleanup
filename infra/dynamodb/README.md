@@ -14,6 +14,7 @@ GitHub account from a fixed pool of 12, without ever double-assigning.
 | `password_ref`   | S    | Secrets Manager ARN for the account password. |
 | `refresh_token_ref` | S | Secrets Manager ARN for the GitHub App refresh token. Set by `infra/gh_app/consent.py`. |
 | `totp_seed_ref`  | S    | Secrets Manager ARN for the GitHub TOTP base32 seed. Set by `bootstrap-totp.py`. |
+| `pat_ref`        | S    | Secrets Manager ARN for the user's GitHub PAT (classic or fine-grained). Set by `bootstrap-pat.py`. |
 | `sandbox_id`     | S    | Instruqt `$_SANDBOX_ID` of the holder. Removed on release. GSI hash key. |
 | `checked_out_at` | N    | Unix ts. Removed on release. |
 | `expires_at`     | N    | Unix ts. Removed on release. Used by the TTL sweeper. |
