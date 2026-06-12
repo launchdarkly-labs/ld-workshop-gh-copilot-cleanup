@@ -46,7 +46,7 @@ First, click on the [GitHub](#tab-1) tab, sign in to GitHub using the credential
 [[ Instruqt-Var key="gh_totp" hostname="workstation" ]]
 ```
 
-> The 2FA code rotates every 30 seconds. If the one above has expired by the time GitHub prompts you, open the **Terminal** tab and run `gh-totp` to print a fresh code.
+> The 2FA code rotates every 30 seconds. If the one above has expired by the time GitHub prompts you, open the [Terminal](#tab2) tab and run `gh-totp` to print a fresh code.
 
 Next, we need to clone a repo which we can work with.
 
