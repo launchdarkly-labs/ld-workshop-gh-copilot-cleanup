@@ -12,26 +12,15 @@ notes:
     built-in guidance on how to safely identify a flag's forward value before removing
     it from code."
 tabs:
-- id: jk9fx4dcuv4d
+- id: chyosqa7xo6q
   title: LaunchDarkly
   type: browser
   hostname: launchdarkly
-- id: ikyucf6lcxxx
-  title: Code Editor
-  type: service
-  hostname: workstation
-  port: 8080
-- id: ey6iyce4gwyh
+- id: zrz6bl8ytqnz
   title: GitHub
   type: browser
   hostname: github
-- id: 7l5kmbo3p5kx
-  title: Coffee Shop App
-  type: service
-  hostname: workstation
-  path: /
-  port: 3000
-- id: ypcqdnpe4bwv
+- id: yg7qem2xyxj1
   title: Terminal
   type: terminal
   hostname: workstation
@@ -45,7 +34,7 @@ The MCP server handles API communication, but the custom agent profile is what g
 
 First, let's get our repo ready in our terminal.
 
-1. Go to the GitHub tab, and in the upper-right corner, click on the user avatar, then click **Settings**.
+1. Go to the [GitHub](tab#1) tab, and in the upper-right corner, click on the user avatar, then click **Settings**.
 2. Click **SSH and GPG keys**, then under SSH keys, click **New SSH key**.
 3. For **Title**, enter:
 ```text
@@ -57,7 +46,7 @@ Copilot Cleanup User
 [[ Instruqt-Var key="git_ssh_key" hostname="workstation" ]]
 ```
 
-1. Go to the Terminal tab, and enter:
+1. Go to the [Terminal](tab#2) tab, and enter:
 ```text
 git clone git@github.com:[[ Instruqt-Var key="gh_user" hostname="workstation" ]]/ld-sample-app-python.git && cd ld-sample-app-python
 ```

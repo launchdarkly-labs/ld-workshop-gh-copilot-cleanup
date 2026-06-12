@@ -12,26 +12,15 @@ notes:
     any environment. The LaunchDarkly agent cross-references flag status across all
     environments before recommending removal."
 tabs:
-- id: yke7st3iayjj
+- id: j7miuxhruxos
   title: LaunchDarkly
   type: browser
   hostname: launchdarkly
-- id: cefmhiqilg6k
-  title: Code Editor
-  type: service
-  hostname: workstation
-  port: 8080
-- id: w8obaowwr6ov
+- id: ypvwtd2ewjpe
   title: GitHub
   type: browser
   hostname: github
-- id: sn6bwvgrimpo
-  title: Coffee Shop App
-  type: service
-  hostname: workstation
-  path: /
-  port: 3000
-- id: 8jpt6go5lexj
+- id: x6kwfduugrsc
   title: Terminal
   type: terminal
   hostname: workstation
@@ -43,11 +32,14 @@ enhanced_loading: null
 
 Now that everything is configured, you'll use the LaunchDarkly agent through the GitHub Copilot UI to evaluate whether a feature flag is safe to remove.
 
-1. In the GitHub Tab, click the **Agents** tab.
-2. Click the Agents icon () and select `launchdarkly-flag-cleanup`.
-3. Enter the following prompt:
+1. In the [GitHub](tab#1) Tab, return to the repository by clicking the user avatar in the upper right corner, then click **Repositories**.
+2. Click **ld-sample-app-python**, then click the **Agents** tab.
+3. Click the Agents icon:
+![Agents Icon](../assets/agent-icon.png)
+4. Select `launchdarkly-flag-cleanup`.
+4. Enter the following prompt:
 ```
-Check if the flag 'coffee-promo-1' is safe to remove from the codebase.
+Check if the flag  `coffee-promo-1` in the launchdarkly project `[[ Instruqt-Var key="projectKey" hostname="workstation" ]]` is safe to remove from this codebase.
 ```
 Review the agent's response. It will query the LaunchDarkly API to check flag status across environments, look for any dependent flags, and analyze how the flag is used in the codebase.
 Note the removal readiness assessment the agent provides — pay attention to whether it identifies a clear winning variant and whether any environments still have the flag actively targeted.

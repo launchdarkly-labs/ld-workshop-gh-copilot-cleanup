@@ -15,21 +15,10 @@ tabs:
   title: LaunchDarkly
   type: browser
   hostname: launchdarkly
-- id: sqd2uwnxljlt
-  title: Code Editor
-  type: service
-  hostname: workstation
-  port: 8080
 - id: holu7moyfbld
   title: GitHub
   type: browser
   hostname: github
-- id: sjc64h9pkzva
-  title: Coffee Shop App
-  type: service
-  hostname: workstation
-  path: /
-  port: 3000
 - id: xqqhvfakydup
   title: Terminal
   type: terminal
@@ -42,7 +31,7 @@ enhanced_loading: null
 
 GitHub Copilot communicates with LaunchDarkly through a Model Context Protocol (MCP) server. In this challenge, you'll wire that connection up in your Copilot settings.
 
-First, sign in to GitHub using the credentials assigned to your session (you'll stay signed in for the remaining challenges):
+First, click on the [GitHub](#tab-1) tab, sign in to GitHub using the credentials assigned to your session (you'll stay signed in for the remaining challenges):
 
 **Username:**
 ```text

@@ -13,26 +13,15 @@ notes:
     in codebases. Automating cleanup with an agent like this can significantly reduce
     the time flags spend lingering past their useful life."
 tabs:
-- id: zzbjqpojw3dz
+- id: 1wikgup293oz
   title: LaunchDarkly
   type: browser
   hostname: launchdarkly
-- id: kr8wwna5isjl
-  title: Code Editor
-  type: service
-  hostname: workstation
-  port: 8080
-- id: xughtkr7exzx
+- id: v7lfgavakwfh
   title: GitHub
   type: browser
   hostname: github
-- id: vg002rpnuj20
-  title: Coffee Shop App
-  type: service
-  hostname: workstation
-  path: /
-  port: 3000
-- id: ggxg3xlghh63
+- id: ktr4zm41npqb
   title: Terminal
   type: terminal
   hostname: workstation
@@ -48,7 +37,7 @@ With confidence that a flag is ready for removal, you'll now instruct the Launch
 2. Click the Agents icon () and select `launchdarkly-flag-cleanup`.
 3. Enter a prompt to trigger the full cleanup workflow, for example:
 ```
-Remove the feature flag `coffee-promo-1` in the project 'kevin-c-sample-app' and update the code to use the true variant.
+Remove the feature flag `coffee-promo-1` in the launchdarkly project `[[ Instruqt-Var key="projectKey" hostname="workstation" ]]` and update the code to use the true variant.
 ```
 4. The agent will:
 	* Identify the correct forward value (the variant to preserve)

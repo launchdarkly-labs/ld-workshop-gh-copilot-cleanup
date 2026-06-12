@@ -6,7 +6,8 @@ cd /opt/ld/terraform-ld-student
 terraform destroy -auto-approve || true
 
 # get the personal acces token
-GITHUB_TOKEN=$(python3 /opt/ld/util/pat.py current launchdarkly-user-01)
+GITHUB_TOKEN=$(python3 /opt/ld/util/pat.py current "$GH_USER")
+echo $GITHUB_TOKEN
 # Delete all github repos and SSH keys
 gh repo list --limit 1000 --json nameWithOwner -q '.[].nameWithOwner' \
   | xargs -I {} gh repo delete {} --yes

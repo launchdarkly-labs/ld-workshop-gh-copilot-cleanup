@@ -11,10 +11,18 @@ notes:
     scope your API token to only the projects and environments your agent needs access
     to — a good practice for production setups."
 tabs:
-- id: rmpn4htbpuwv
+- id: teuxxcmbyrm5
   title: LaunchDarkly
   type: browser
   hostname: launchdarkly
+- id: td6g3powbm8t
+  title: GitHub
+  type: browser
+  hostname: github
+- id: ujazw2ycwsvd
+  title: Terminal
+  type: terminal
+  hostname: workstation
 difficulty: ""
 timelimit: 600
 enhanced_loading: null
