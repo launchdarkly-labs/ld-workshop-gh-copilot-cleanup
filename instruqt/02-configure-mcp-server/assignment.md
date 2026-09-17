@@ -48,12 +48,17 @@ First, click on the [GitHub](#tab-1) tab, sign in to GitHub using the credential
 
 > The 2FA code rotates every 30 seconds. If the one above has expired by the time GitHub prompts you, open the [Terminal](#tab2) tab and run `gh-totp` to print a fresh code.
 
+# Fork Repository
+
 Next, we need to clone a repo which we can work with.
 
 1. In the GitHub tab, click on the **ld-sample-app-python** repository.
 2. At the upper-right of the repo, click **Fork**, then **Create fork**.
-3. Go to **Settings** → **Copilot** → **Cloud agent**.
-4. In the MCP configuration section, add the following JSON — replacing the placeholder with the API token you generated in the previous challenge:
+
+# Add MCP Server
+
+1. Go to **Settings** → **Copilot** → **Cloud agent**.
+2. In the MCP configuration section, add the following JSON — replacing the placeholder with the API token you generated in the previous challenge:
 ```javascript
 {
   "mcpServers": {

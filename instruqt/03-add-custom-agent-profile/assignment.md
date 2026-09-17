@@ -32,6 +32,8 @@ enhanced_loading: null
 
 The MCP server handles API communication, but the custom agent profile is what gives GitHub Copilot its specialized knowledge of LaunchDarkly workflows — things like how to evaluate flag readiness, identify forward values, and structure pull requests that preserve production behavior.
 
+# Setup SSH
+
 First, let's get our repo ready in our terminal.
 
 1. Go to the [GitHub](tab#1) tab, and in the upper-right corner, click on the user avatar, then click **Settings**.
@@ -45,6 +47,8 @@ Copilot Cleanup User
 ```text
 [[ Instruqt-Var key="git_ssh_key" hostname="workstation" ]]
 ```
+
+# Clone Repository & Configure Agent
 
 1. Go to the [Terminal](tab#2) tab, and enter:
 ```text

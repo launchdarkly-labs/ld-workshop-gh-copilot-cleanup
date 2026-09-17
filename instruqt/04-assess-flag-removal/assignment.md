@@ -28,7 +28,19 @@ difficulty: ""
 timelimit: 600
 enhanced_loading: null
 ---
-# Lab 4: Assess a Flag for Removal Using the Copilot UI
+# Lab 4: Flag Assessment
+
+# Setup Code References
+
+Code references scans the repo and looks for the references to any of the projects flags within the codebase. Those references are shown per flag's details, located in the right-hand panel. The Copilot flag cleanup agent also uses code references as a source of truth. Let's set this up now.
+
+1. In the [Terminal](tab#2) tab, enter:
+```
+
+```
+
+
+# Assess a Flag for Removal Using the Copilot UI
 
 Now that everything is configured, you'll use the LaunchDarkly agent through the GitHub Copilot UI to evaluate whether a feature flag is safe to remove.
 
@@ -37,7 +49,7 @@ Now that everything is configured, you'll use the LaunchDarkly agent through the
 3. Click the Agents icon:
 ![Agents Icon](../assets/agent-icon.png)
 4. Select `launchdarkly-flag-cleanup`.
-4. Enter the following prompt:
+5. Enter the following prompt:
 ```
 Check if the flag  `coffee-promo-1` in the launchdarkly project `[[ Instruqt-Var key="projectKey" hostname="workstation" ]]` is safe to remove from this codebase.
 ```
