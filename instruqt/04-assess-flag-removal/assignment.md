@@ -34,10 +34,17 @@ enhanced_loading: null
 
 Code references scans the repo and looks for the references to any of the projects flags within the codebase. Those references are shown per flag's details, located in the right-hand panel. The Copilot flag cleanup agent also uses code references as a source of truth. Let's set this up now.
 
-1. In the [Terminal](#tab-2) tab, enter:
+1. In the [Terminal](#tab-2) tab, enter the command below. Replace `<your-api-token>` with the API access token you generated in Lab 1:
+```text
+ld-find-code-refs \
+  --accessToken "<your-api-token>" \
+  --projKey "[[ Instruqt-Var key="projectkey" hostname="workstation" ]]" \
+  --repoName ld-sample-app-python \
+  --repoType github \
+  --repoUrl "https://github.com/[[ Instruqt-Var key="gh_user" hostname="workstation" ]]/ld-sample-app-python" \
+  --dir ~/ld-sample-app-python
 ```
-
-```
+2. Go to the [LaunchDarkly](#tab-0) tab, open the **coffee-promo-1** flag, and look at the **Code references** section in the right-hand panel. You should see the file and line in `ld-sample-app-python` where the flag is evaluated. That entry is the evidence the cleanup agent will lean on.
 
 
 # Assess a Flag for Removal Using the Copilot UI
