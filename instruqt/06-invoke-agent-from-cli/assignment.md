@@ -32,7 +32,7 @@ enhanced_loading: null
 
 The Copilot UI is convenient, but the CLI lets you trigger flag cleanup workflows without leaving your terminal. In this final challenge, you'll install the GitHub Copilot CLI and use it to invoke the LaunchDarkly agent directly.
 
-Let's go ahead and switch to the [Terminal](tab#2) tab.
+Let's go ahead and switch to the [Terminal](#tab-2) tab.
 
 1. Make sure you're in the repo folder:
 ```bash

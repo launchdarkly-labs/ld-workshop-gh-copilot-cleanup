@@ -36,7 +36,7 @@ The MCP server handles API communication, but the custom agent profile is what g
 
 First, let's get our repo ready in our terminal.
 
-1. Go to the [GitHub](tab#1) tab, and in the upper-right corner, click on the user avatar, then click **Settings**.
+1. Go to the [GitHub](#tab-1) tab, and in the upper-right corner, click on the user avatar, then click **Settings**.
 2. Click **SSH and GPG keys**, then under SSH keys, click **New SSH key**.
 3. For **Title**, enter:
 ```text
@@ -50,7 +50,7 @@ Copilot Cleanup User
 
 # Clone Repository & Configure Agent
 
-1. Go to the [Terminal](tab#2) tab, and enter:
+1. Go to the [Terminal](#tab-2) tab, and enter:
 ```text
 git clone git@github.com:[[ Instruqt-Var key="gh_user" hostname="workstation" ]]/ld-sample-app-python.git && cd ld-sample-app-python
 ```

@@ -34,7 +34,7 @@ enhanced_loading: null
 
 Code references scans the repo and looks for the references to any of the projects flags within the codebase. Those references are shown per flag's details, located in the right-hand panel. The Copilot flag cleanup agent also uses code references as a source of truth. Let's set this up now.
 
-1. In the [Terminal](tab#2) tab, enter:
+1. In the [Terminal](#tab-2) tab, enter:
 ```
 
 ```
@@ -44,7 +44,7 @@ Code references scans the repo and looks for the references to any of the projec
 
 Now that everything is configured, you'll use the LaunchDarkly agent through the GitHub Copilot UI to evaluate whether a feature flag is safe to remove.
 
-1. In the [GitHub](tab#1) Tab, return to the repository by clicking the user avatar in the upper right corner, then click **Repositories**.
+1. In the [GitHub](#tab-1) Tab, return to the repository by clicking the user avatar in the upper right corner, then click **Repositories**.
 2. Click **ld-sample-app-python**, then click the **Agents** tab.
 3. Click the Agents icon:
 ![Agents Icon](../assets/agent-icon.png)
